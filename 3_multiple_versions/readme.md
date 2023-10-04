@@ -1,5 +1,15 @@
 ### 1. Explain the technical concept 📘
-In the provided code snippet, there are conditional compilation directives, determined by the kernel version, to log different comments in the Kernel log. Here, `LINUX_VERSION_CODE` and `KERNEL_VERSION` are used together to perform conditional checks on the kernel version, and depending on whether the kernel version is old, new, or moderate, different log messages are printed using `printk()`, displaying the `UTS_RELEASE` string, which contains the version information of the kernel.
+In the provided code snippet, there are conditional compilation directives, determined by the kernel version, to log different comments in the Kernel log. 
+- Here, `LINUX_VERSION_CODE` and `KERNEL_VERSION` are used together to perform conditional checks on the kernel version, and depending on whether the kernel version is old, new, or moderate, different log messages are printed using `printk()`, displaying the `UTS_RELEASE` string, which contains the version information of the kernel.
+
+```C
+#if LINUX_VERSION_CODE <= KERNEL_VERSION(2, 6, 10)
+		printk(KERN_INFO "KERNELVERSION: Hello OLD Kernel %s\n", UTS_RELEASE);
+	#elif  LINUX_VERSION_CODE >= KERNEL_VERSION(5, 0, 0)
+		printk(KERN_INFO "KERNELVERSION: Hello NEW Kernel %s\n", UTS_RELEASE);
+	#else
+		printk(KERN_INFO "KERNELVERSION: Hello Moderate Kernel %s\n", UTS_RELEASE);
+```
 
 ### 2. Curious Questions 🤔
 **Q:** What is the significance of using `LINUX_VERSION_CODE` and `KERNEL_VERSION` for conditional compilation in kernel modules?
